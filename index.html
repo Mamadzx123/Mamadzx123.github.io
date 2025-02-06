@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ComparAssure Vie - Simulation</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3E9ZTMXH0D"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-3E9ZTMXH0D');
+    </script>
+</head>
+<body>
+    <div class="form-container">
+        <h1>ComparAssure Vie</h1>
+
+        <!-- Barre de progression -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <!-- Formulaire unique pour tout soumettre à Formspree -->
+        <form id="insurance-form" action="https://formspree.io/f/xldgldek" method="POST">
+            <!-- Page 1 -->
+            <div class="form-page" id="page-1">
+                <div class="question">
+                    <label for="smoker">Êtes-vous fumeur ?</label>
+                    <select id="smoker" name="smoker" required>
+                        <option value="" disabled selected>Choisissez une option</option>
+                        <option value="oui">Oui</option>
+                        <option value="non">Non</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label for="age">Tranche d'âge :</label>
+                    <select id="age" name="age" required>
+                        <option value="" disabled selected>Choisissez une tranche</option>
+                        <option value="18-29">18-29 ans</option>
+                        <option value="30-39">30-39 ans</option>
+                        <option value="40-49">40-49 ans</option>
+                        <option value="50-59">50-59 ans</option>
+                        <option value="60-69">60-69 ans</option>
+                        <option value="70-79">70-79 ans</option>
+                    </select>
+                </div>
+
+                <button type="button" class="cta-button" onclick="nextPage(2)">Suivant</button>
+                <p class="soumission-text">Obtenez la meilleure soumission parmi plus de 20 assureurs du Québec</p>
+            </div>
+
+            <!-- Page 2 -->
+            <div class="form-page" id="page-2">
+                <div class="question">
+                    <label for="amount">Montant souhaité :</label>
+                    <select id="amount" name="amount" required>
+                        <option value="" disabled selected>Choisissez un montant</option>
+                        <option value="25000">$25 000</option>
+                        <option value="50000">$50 000</option>
+                        <option value="75000">$75 000</option>
+                        <option value="100000">$100 000</option>
+                        <option value="125000">$125 000</option>
+                        <option value="150000">$150 000</option>
+                        <option value="175000">$175 000</option>
+                        <option value="200000">$200 000</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label for="duration">Durée du contrat :</label>
+                    <select id="duration" name="duration" required>
+                        <option value="" disabled selected>Choisissez une durée</option>
+                        <option value="10">10 ans</option>
+                        <option value="15">15 ans</option>
+                        <option value="20">20 ans</option>
+                        <option value="25">25 ans</option>
+                        <option value="À VIE">À VIE</option>
+                    </select>
+                </div>
+
+                <button type="button" class="cta-button" onclick="nextPage(3)">Suivant</button>
+                <p class="soumission-text">Obtenez la meilleure soumission parmi plus de 20 assureurs du Québec</p>
+            </div>
+
+            <!-- Page 3 -->
+            <div class="form-page" id="page-3">
+                <div class="question">
+                    <label for="fullname">Nom complet :</label>
+                    <input type="text" id="fullname" name="fullname" placeholder="Votre nom" required>
+                </div>
+
+                <div class="question">
+                    <label for="phone">Numéro de téléphone :</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Votre téléphone" required>
+                </div>
+
+                <div class="question">
+                    <label for="email">Email :</label>
+                    <input type="email" id="email" name="email" placeholder="Votre email" required>
+                </div>
+
+                <button type="submit" class="cta-button">Obtenir ma soumission</button>
+            </div>
+        </form>
+
+        <!-- Page de remerciement -->
+        <div class="form-page" id="thank-you" style="display: none;">
+            <h2>Merci pour votre demande !</h2>
+            <p>Un professionnel vous contactera sous peu afin de vous fournir votre soumission.</p>
+        </div>
+    </div>
+
+    <script>
+        function nextPage(pageNumber) {
+            const currentPage = document.getElementById('page-' + (pageNumber - 1));
+            const selects = currentPage.querySelectorAll('select');
+
+            let valid = true;
+            selects.forEach(select => {
+                if (select.value === "") {
+                    valid = false;
+                    select.style.borderColor = "red";
+                } else {
+                    select.style.borderColor = "#003366";
+                }
+            });
+
+            if (!valid) {
+                return;
+            }
+
+            document.querySelectorAll('.form-page').forEach(page => page.style.display = 'none');
+            document.getElementById('page-' + pageNumber).style.display = 'block';
+
+            // Envoie une page vue à Google Analytics chaque fois que la page change
+            gtag('event', 'page_view', {
+                page_path: '/page-' + pageNumber // Vous pouvez changer l'URL si nécessaire
+            });
+
+            const totalPages = 3;
+            const progress = ((pageNumber - 1) / totalPages) * 100;
+            document.getElementById('progress-bar').style.width = progress + '%';
+        }
+
+        document.getElementById('insurance-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            fetch(this.action, {
+                method: this.method,
+                body: new FormData(this),
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if (response.ok) {
+                    document.querySelectorAll('.form-page').forEach(page => page.style.display = 'none');
+                    document.getElementById('thank-you').style.display = 'flex';
+                    document.getElementById('progress-bar').style.width = '100%';
+
+                    // Suivi de la page de remerciement
+                    gtag('event', 'page_view', {
+                        page_path: '/thank-you' // Page de remerciement
+                    });
+                } else {
+                    alert("Une erreur s'est produite, veuillez réessayer.");
+                }
+            }).catch(error => {
+                alert("Une erreur s'est produite, veuillez vérifier votre connexion.");
+            });
+        });
+
+        document.getElementById('page-1').style.display = 'block';
+        // Envoie un premier événement page vue au chargement de la première page
+        gtag('event', 'page_view', {
+            page_path: '/page-1' // Initialisation du suivi de la première page
+        });
+    </script>
+</body>
+</html>
