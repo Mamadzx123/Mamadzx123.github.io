@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Empêche le débordement */
+}
+
+html, body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f7fc;
+    width: 100vw; /* 100% de la largeur de l'écran */
+    height: 100vh; /* 100% de la hauteur de l'écran */
+    overflow: hidden; /* Empêche le scroll */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Conteneur du formulaire */
+.form-container {
+    width: 100%;
+    max-width: 900px;
+    padding: 40px;
+}
+
+/* Titre */
+h1 {
+    font-size: 28px;
+    text-align: center;
+    color: #003366;
+    margin-bottom: 20px;
+}
+
+/* Barre de progression */
+.progress-container {
+    width: 100%;
+    background-color: #ddd;
+    border-radius: 5px;
+    margin-bottom: 70px; /* + d'espace entre la barre et les questions */
+    height: 10px;
+}
+
+.progress-bar {
+    width: 0;
+    height: 100%;
+    background-color: #003366;
+    transition: width 0.4s ease-in-out;
+}
+
+/* Formulaire */
+.form-page {
+    display: none;
+    width: 100%;
+}
+
+/* Questions */
+.question {
+    margin-bottom: 30px; /* + d'espace entre les questions */
+    text-align: left;
+}
+
+/* Labels */
+label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Champs de saisie */
+select, input {
+    width: 100%;
+    padding: 15px; /* Plus grand verticalement */
+    border: 2px solid #003366; /* Contour bleu fin */
+    border-radius: 5px;
+    font-size: 16px;
+    height: 60px;
+    transition: border-width 0.2s ease-in-out;
+}
+
+/* Quand on sélectionne l'input */
+input:focus, select:focus {
+    border-width: 3px; /* Contour plus épais */
+    outline: none; /* Supprime le contour par défaut */
+}
+
+/* Bouton CTA */
+.cta-button {
+    width: 100%;
+    background-color: #003366;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-top: 30px; /* + d'espace entre le dernier input et le bouton */
+}
+
+.cta-button:hover {
+    background-color: #002244;
+}
+
+/* Page de remerciement */
+#thank-you {
+    display: flex;
+    flex-direction: column; /* Place les éléments en colonne */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 250px;
+}
+
+#thank-you h2 {
+    font-size: 24px;
+    color: #003366;
+    font-weight: bold;
+    margin-bottom: 15px; /* Ajoute un espace sous le titre */
+}
+
+/* Texte de remerciement */
+#thank-you p {
+    font-size: 16px;
+    color: #555;
+    max-width: 80%;
+    line-height: 1.5;
+}
+
+/* Ajustement uniquement pour la page de remerciement */
+.progress-container.thank-you {
+    margin-bottom: 40px; /* Réduit l'espace entre la barre et les textes */
+}
+
+#thank-you h2 {
+    margin-top: -40px; /* Remonte le titre vers la barre de progression */
+}
+
+/* Texte sous le bouton "Suivant" */
+.soumission-text {
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    margin-top: 15px;
+    font-weight: 500;
+}
