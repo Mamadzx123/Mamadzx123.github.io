@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ComparAssure Vie - Simulation</title>
     <link rel="stylesheet" href="style.css">
-
+    
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3E9ZTMXH0D"></script>
     <script>
@@ -25,8 +25,8 @@
             <div class="progress-bar" id="progress-bar"></div>
         </div>
 
-        <!-- Formulaire unique pour tout soumettre à Formspree -->
-        <form id="insurance-form" action="https://formspree.io/f/xldglde" method="POST">
+        <!-- Formulaire -->
+        <form id="insurance-form">
             <!-- Page 1 -->
             <div class="form-page" id="page-1">
                 <div class="question">
@@ -151,25 +151,14 @@
         document.getElementById('insurance-form').addEventListener('submit', function(event) {
             event.preventDefault();
 
-            fetch(this.action, {
-                method: this.method,
-                body: new FormData(this),
-                headers: { 'Accept': 'application/json' }
-            }).then(response => {
-                if (response.ok) {
-                    document.querySelectorAll('.form-page').forEach(page => page.style.display = 'none');
-                    document.getElementById('thank-you').style.display = 'flex';
-                    document.getElementById('progress-bar').style.width = '100%';
+            // Remplacer la soumission à Formspree par un simple message de succès
+            document.querySelectorAll('.form-page').forEach(page => page.style.display = 'none');
+            document.getElementById('thank-you').style.display = 'flex';
+            document.getElementById('progress-bar').style.width = '100%';
 
-                    // Suivi de la page de remerciement
-                    gtag('event', 'page_view', {
-                        page_path: '/thank-you' // Page de remerciement
-                    });
-                } else {
-                    alert("Une erreur s'est produite, veuillez réessayer.");
-                }
-            }).catch(error => {
-                alert("Une erreur s'est produite, veuillez vérifier votre connexion.");
+            // Suivi de la page de remerciement
+            gtag('event', 'page_view', {
+                page_path: '/thank-you' // Page de remerciement
             });
         });
 
